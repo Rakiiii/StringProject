@@ -13,6 +13,10 @@ class String
 	  char *_string;
 	  int length;
 
+	  //сравнение символов
+
+	  bool comprationChar(const String &secondString);
+
   public:
 
 	  //getter для значения строки
@@ -29,7 +33,7 @@ class String
         
 	  //конструктор копированния
 
-	  String(const String& secondString);
+	  String(const String &secondString);
 
 	  //конструктор новой строки
 
@@ -37,15 +41,43 @@ class String
 	  
 	  //перегрузка опретора конкатенации строк
 
-	  String& operator +(const String& rightString);
+	  String& operator +(const String &rightString);
 
 	  //перегрузка операции присваивания
 
-	  String& operator= (const String& rightString);
+	  String& operator= (const String &rightString);
 
 	  //метод вывода строки 
 
 	  void printString();
+
+	  //перегрузка оператора >=
+
+	  const bool operator>=(const String &rightString);
+
+	  //перегрузка оператора <=
+
+	  const bool operator<=(const String &rightString);
+
+	  //перегрузка оператора ==
+
+	  const bool operator==(const String &rightString);
+
+	  //перегрузка оператора >
+
+	  const bool operator>(const String &rightString);
+
+	  //перегрузка оператора <
+
+	  const bool operator<(const String &rightString);
+
+	  //перегрузка оператора !=
+
+	  const bool operator!=(const String &rightString);
+
+	  
+
+	  
 };
 
 
