@@ -78,6 +78,9 @@ class String
 	  //деструктор 
 
 	  ~String();
+	  //меняет местами значения двух строк
+
+	  void swap(String &b);
 };
 
 

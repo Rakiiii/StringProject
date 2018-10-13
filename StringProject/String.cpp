@@ -5,7 +5,6 @@ using namespace std;
 
 
 //TODO : написать деструктор
-//TODO : отдебагать перегрузку оператора присваивания
 //TODO : написать преобразование в числа разных видов
 
 
@@ -82,20 +81,24 @@ using namespace std;
 		return newString;
 	}
 
+	//меняет местами значения двух строк
+
+	void String::swap(String &b)
+	{
+		std::swap(length, b.length);
+		std::swap(_string, b._string);
+	}
+
 	//перегрузка оператора присваивания
 
-	String& String::operator= (const String &rightString)
+	String& String::operator=(const String &rightString)
 	{
 		if (this != &rightString)
 		{
-			delete this->_string;
-			this->length = rightString.length;
-			this->_string = new char[this->length + 1];
-			strcpy(this->_string, rightString._string);
-			//this->_string[this->length + 1] = '\0';
+			String(rightString).swap(*this);
 		}
 		return *this;
-	}
+	}	
 
 	//метод вывода строки
 
