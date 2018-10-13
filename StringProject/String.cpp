@@ -177,5 +177,9 @@ using namespace std;
 
 	String::~String()
 	{
-
+		if (this->_string != nullptr)
+		{
+			delete[] this->_string;
+		}
+		this->_string = nullptr;
 	}
