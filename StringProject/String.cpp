@@ -64,7 +64,7 @@ using namespace std;
 	}
 
 	//перегрузка оператора конкатенации
-	String& String::operator+(const String &rightString)
+	String String::operator+(const String &rightString)
 	{
 		//создаем результируюшую строку
 		String newString;
@@ -73,7 +73,7 @@ using namespace std;
 		//получаем длину новой строки
 		newString.length = this->length + rightString.length;
 		//выделяем память строки
-		newString._string = new char[newString.length + 10];
+		newString._string = new char[newString.length + 1];
 		//складываем непосредственно строки
 		strcpy(newString._string,this->_string);
 		strcpy(newString._string + this->length, rightString._string);
@@ -169,3 +169,10 @@ using namespace std;
 		return check;
 	}
 
+	//деструктор 
+	//TODO : заставить деструктор очищать память
+
+	String::~String()
+	{
+
+	}

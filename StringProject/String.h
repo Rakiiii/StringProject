@@ -41,7 +41,7 @@ class String
 	  
 	  //перегрузка опретора конкатенации строк
 
-	  String& operator +(const String &rightString);
+	  String operator +(const String &rightString);
 
 	  //перегрузка операции присваивания
 
@@ -75,9 +75,9 @@ class String
 
 	  const bool operator!=(const String &rightString);
 
-	  
+	  //деструктор 
 
-	  
+	  ~String();
 };
 
 
