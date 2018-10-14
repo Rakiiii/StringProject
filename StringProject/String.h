@@ -6,7 +6,7 @@
 #include <string.h>
 #include "pch.h"
 #define _CRT_SECURE_NO_WARNINGS
-
+using namespace std;
 class String
 {
   private:
@@ -77,10 +77,30 @@ class String
 
 	  //деструктор 
 
-	  ~String();
+	  virtual ~String();
 	  //меняет местами значения двух строк
 
 	  void swap(String &b);
+
+	  //преобразование строки в число
+
+	  //перевод в число с плаваяюзей запятой
+	  double convertToDouble();
+	   
+	  //перевод в целое число
+	  int convertToInt();
+
+	  //перевод в числос плавающей запятой
+	  float convertToFloat();
+
+	  //перегрузка ввода из потока
+
+	  friend istream& operator>> (istream &is, String &obj);
+
+	  //перегрузка операции сложения с символом
+
+	  String operator+(const char *rightChar);
+	  
 };
 
 

@@ -4,8 +4,8 @@ using namespace std;
 
 
 
-//TODO : написать деструктор
-//TODO : написать преобразование в числа разных видов
+//TODO : написать приведение типов
+//TODO : Отдебагать все
 
 
 
@@ -28,8 +28,7 @@ using namespace std;
 	String::String()
 	{
 		this->length = 0;
-		this->_string = new char[1];
-		*this->_string = 0;
+		this->_string = nullptr;
 	}
 
 	//конструктор копированния
@@ -47,8 +46,6 @@ using namespace std;
 		//копируем все символы
 
 		strcpy(this->_string,secondString._string);
-
-		this->_string[this->length + 1] = '\0';
 	}
 
 	//копированния строки
@@ -59,7 +56,6 @@ using namespace std;
 		this->length = strlen(newString);
 		this->_string = new char[this->length + 1];
 		strcpy(this->_string, newString);
-		this->_string[this->length + 1] = '\0';
 	}
 
 	//перегрузка оператора конкатенации
@@ -68,7 +64,7 @@ using namespace std;
 		//создаем результируюшую строку
 		String newString;
 		//освобождаем память
-		delete newString._string;
+		delete[] newString._string;
 		//получаем длину новой строки
 		newString.length = this->length + rightString.length;
 		//выделяем память строки
@@ -172,14 +168,119 @@ using namespace std;
 		return check;
 	}
 
-	//деструктор 
-	//TODO : заставить деструктор очищать память
+	//деструктор
 
-	String::~String()
+	 String::~String()
 	{
 		if (this->_string != nullptr)
 		{
 			delete[] this->_string;
+			this->_string = nullptr;
 		}
-		this->_string = nullptr;
 	}
+
+	//преобразование строки в число
+
+	
+	int String::convertToInt()
+	{
+		int number = NULL;
+		for (int i = 0; i < this->length; i++)
+		{
+			if ((this->_string[i] >= '0') && (this->_string[i] <= '9'))
+			{
+				number = number * 10 + this->_string[i] - 0x30;
+			}
+			else return NULL;
+		}
+		return number;
+	}
+
+	double String::convertToDouble()
+	{
+		double number = NULL;
+		bool flag = false;
+		int counter = 0;
+		for (int i = 0; i < this->length; i++)
+		{
+			if (
+				(this->_string[i] == '.') ||
+				(this->_string[i] == ',') ||
+				((this->_string[i] >= '0') && (this->_string[i] <= '9'))
+				)
+			{
+				if ((this->_string[i] == '.') || (this->_string[i] == ','))
+				{
+					if (!flag)
+					{
+						i++;
+						flag = true;
+					}
+					else return NULL;
+				}
+				if ((this->_string[i] >= '0') && (this->_string[i] <= '9'))
+				{
+					if (flag) counter++;
+					number = number * 10 + this->_string[i] - 0x30;
+				}
+			}
+			else return NULL;
+		}
+		if (counter > 0)number = (number / pow(10, counter));
+		return number;
+	}
+
+	float String::convertToFloat()
+	{
+		float number = NULL;
+		bool flag = false;
+		int counter = 0;
+		for (int i = 0; i < this->length; i++)
+		{
+			if (
+				(this->_string[i] == '.') ||
+				(this->_string[i] == ',') ||
+				((this->_string[i] >= '0') && (this->_string[i] <= '9'))
+				)
+			{
+				if ((this->_string[i] == '.') || (this->_string[i] == ','))
+				{
+					if (!flag)
+					{
+						i++;
+						flag = true;
+					}
+					else return NULL;
+				}
+				if ((this->_string[i] >= '0') && (this->_string[i] <= '9'))
+				{
+					if (flag) counter++;
+					number = number * 10 + this->_string[i] - 0x30;
+				}
+			}
+			else return NULL;
+		}
+		if (counter > 0)number = (number / pow(10, counter));
+		return number;
+	}
+
+	//перегрузка ввода из потока
+
+	/*istream& String::operator >> (istream &is, String &obj)
+	{
+		int ios_size = 0;
+		is.sync();
+		String temp;
+		while (is.peek() != 10)
+		{
+			temp = temp + (char)is.get();
+			ios_size++;
+		}
+		delete[] obj._string;
+		obj.length = temp.length;
+		obj._string = new char[obj.length];
+		obj = temp;
+		return is;
+	}*/
+
+
