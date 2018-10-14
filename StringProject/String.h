@@ -95,11 +95,16 @@ class String
 
 	  //перегрузка ввода из потока
 
-	  friend istream& operator>> (istream &is, String &obj);
+	  friend ostream& operator<< (ostream &os, String &obj);
 
 	  //перегрузка операции сложения с символом
 
 	  String operator+(const char *rightChar);
+
+	  operator int();
+	  operator double();
+	  operator float();
+	  operator const char*();
 	  
 };
 

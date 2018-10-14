@@ -4,10 +4,7 @@ using namespace std;
 
 
 
-//TODO : написать приведение типов
-
-
-
+//TODO : написать документацию к коду
 
 	//getter для строки
 
@@ -267,7 +264,33 @@ using namespace std;
 
 	//перегрузка ввода из потока
 
-	/*istream& String::operator >> (istream &is, String &obj)
+	ostream& operator<< (ostream &os, String &obj)
+	{
+		for (int i = 0; i < obj.length; i++)
+		{
+			os << obj._string[i];
+		}
+		return os;
+	}
+
+	String::operator const char *()
+	{
+		return this->_string;
+	}
+	String::operator int()
+	{
+		return this->convertToInt();
+	}
+	String::operator double()
+	{
+		return this->convertToDouble();
+	}
+	String::operator float()
+	{
+		return this->convertToFloat();
+	}
+
+	/*istream& operator >> (istream &is, String &obj)
 	{
 		int ios_size = 0;
 		is.sync();
