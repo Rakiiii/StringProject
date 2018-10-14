@@ -61,6 +61,7 @@ using namespace std;
 	//перегрузка оператора конкатенации
 	String String::operator+(const String &rightString)
 	{
+		if (rightString._string == nullptr)return NULL;
 		//создаем результируюшую строку
 		String newString;
 		//освобождаем память
@@ -226,7 +227,7 @@ using namespace std;
 			}
 			else return NULL;
 		}
-		if (counter > 0)number = (number / pow(10, counter));
+		if (counter > 0)number = (double)(number) / (double)pow(10, counter);
 		return number;
 	}
 
@@ -260,7 +261,7 @@ using namespace std;
 			}
 			else return NULL;
 		}
-		if (counter > 0)number = (number / pow(10, counter));
+		if (counter > 0)number =(float) (number / pow(10, counter));
 		return number;
 	}
 
