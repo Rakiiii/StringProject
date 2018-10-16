@@ -101,9 +101,20 @@ class String
 
 	  String operator+(const char *rightChar);
 
+	  //оператор приведения типов к целому
+
 	  operator int();
+
+	  //оператор приведения типа к дабл
+
 	  operator double();
+
+	  //оператор приведения типов к флот
+
 	  operator float();
+
+	  //оператор примедения к типу константный указатель на символ
+
 	  operator const char*();
 	  
 };
