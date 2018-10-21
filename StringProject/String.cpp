@@ -3,28 +3,12 @@
 using namespace std;
 
 
-
-//TODO : написать документацию к коду
-
-	//getter для строки
-
-	const char* String::getString()
-	{
-		return this->_string;
-	}
-
-	//getter для длинны строки
-
-	int String::getLength()
-	{
-		return this->length;
-	}
-
 	//конструктор пустой строки
 
 	String::String()
 	{
 		this->length = 0;
+
 		this->_string = nullptr;
 	}
 
@@ -40,8 +24,9 @@ using namespace std;
 		if(this->length != 0)
 		this->_string = new char[length + 1];
 
-		//копируем все символы
+		//случай строка пустая
 		if(secondString._string != nullptr)
+			//копируем все символы
 		strcpy(this->_string,secondString._string);
 		else this->_string = nullptr;
 	}
@@ -51,27 +36,36 @@ using namespace std;
 	//конструктор новой строки
 	String::String(const char *newString)
 	{
+		//длина равная количеству символов
 		this->length = strlen(newString);
+
+		//выделяем память
 		this->_string = new char[this->length + 1];
+
+		//копируем все символы
 		strcpy(this->_string, newString);
 	}
 
 	//перегрузка оператора конкатенации
 	String String::operator+(const String &rightString)
 	{
+		//случай если одна их строк пустая
 		if (rightString._string == nullptr)return *this;
 		if (this->_string == nullptr)return rightString;
+
 		//создаем результируюшую строку
 		String newString;
-		//освобождаем память
-		delete[] newString._string;
+
 		//получаем длину новой строки
 		newString.length = this->length + rightString.length;
+
 		//выделяем память строки
 		newString._string = new char[newString.length + 1];
+
 		//складываем непосредственно строки
 		strcpy(newString._string,this->_string);
 		strcpy(newString._string + this->length, rightString._string);
+
 		//newString._string[newString.length + 1] = '\0';
 		//возвращаем наш объект
 		return newString;
@@ -83,6 +77,7 @@ using namespace std;
 	{
 		//меняем местами значения длинны
 		std::swap(length, b.length);
+
 		//меняем местами указатели на строку
 		std::swap(_string, b._string);
 	}
@@ -91,14 +86,27 @@ using namespace std;
 
 	String& String::operator=(const String &rightString)
 	{
-		//проверяем на самоприсваивание
-		if (this != &rightString)
+		//если присваиваем к не нулевой строке то очищаем память и обнуляем указтель
+		if (this->_string != nullptr)
 		{
-			//конструктором копированние солздаем второй экземпляр присваеваемой строки
-			//и меняем местами поля скопированной строки и исходной строки
-			String(rightString).swap(*this);
+			delete[] this->_string;
+			this->_string = nullptr;
 		}
-		//возвращаем строку
+		//если справа 0 строка
+		if (rightString._string == nullptr)
+		{
+			//то длинна тоже 0
+			this->length = 0;
+		}
+		else
+		{
+			//если не нулевая строка, то копируем длинну
+			this->length = rightString.length;
+
+			//выделяем память и копируем строку
+			this->_string = new char[this->length + 1];
+			strcpy(this->_string , rightString._string);
+		}
 		return *this;
 	}	
 
@@ -189,6 +197,7 @@ using namespace std;
 		{
 			//освобождаем выделенную под строку память 
 			delete[] this->_string;
+
 			//обнуляем указатель,память которого освободили
 			this->_string = nullptr;
 		}
@@ -201,6 +210,7 @@ using namespace std;
 		//инициализируем возвращаемое значение
 		int number = NULL;
 		int signFlag = 1;
+
 		//проходим все элементы строки
 		for (int i = 0; i < this->length; i++)
 		{
@@ -236,11 +246,14 @@ using namespace std;
 	{
 		//инициализируем возвращаемое значение
 		double number = NULL;
+
 		//инциализируем флаг для точки
 		bool flag = false;
 		double signFlag = 1.0;
+
 		//инициализируем счетчик для степени
 		int counter = 0;
+
 		//проходим строку
 		for (int i = 0; i < this->length; i++)
 		{
@@ -353,7 +366,7 @@ using namespace std;
 	String::operator int()
 	{
 		//возвращаем хранящееся в строке число если оно там есть
-		return this->convertToInt();
+		return this->convertToDouble();
 	}
 
 	//перегрузка оператора приведенеия к числу с плавающей запятой

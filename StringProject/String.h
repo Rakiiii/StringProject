@@ -17,15 +17,11 @@ class String
 
 	  bool comprationChar(const String &secondString);
 
+	  //меняет местами значения двух строк
+
+	  void swap(String &b);
+
   public:
-
-	  //getter для значения строки
-
-	  const char* getString();
-
-	  //getter для длинны строки
-
-	  int getLength();
 	  
 	  //конструктор
 
@@ -77,10 +73,7 @@ class String
 
 	  //деструктор 
 
-	  virtual ~String();
-	  //меняет местами значения двух строк
-
-	  void swap(String &b);
+	  ~String();
 
 	  //преобразование строки в число
 
